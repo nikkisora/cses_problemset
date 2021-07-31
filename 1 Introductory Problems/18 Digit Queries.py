@@ -37,11 +37,8 @@ Example
 
 Input:
 3
-
 7
-
 19
-
 12
 
 
@@ -52,3 +49,34 @@ Output:
 
 1 
 '''
+
+from math import ceil
+
+n = int(input())
+
+queries = []
+for _ in range(n):
+    queries.append(int(input()))
+    
+brut_string = ''
+for i in range(1, 300):
+    brut_string += str(i)
+
+for q in queries:
+    sum = 0
+    x = 0
+    
+    while sum < q:
+        sum += 9 * 10**x * (x+1)
+        x+=1
+    sum -= 9 * 10**(x-1) * x
+    
+    difference = q - sum
+    landing_number = ceil(10**(x-1) + difference//x - 1)
+    if difference % x:
+        landing_number += 1
+    landing_digit = difference % x - 1
+        
+    print(str(landing_number)[landing_digit])
+    
+    
